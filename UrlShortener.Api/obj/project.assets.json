@@ -2989,11 +2989,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Api\\UrlShortener.Api.csproj",
+      "projectUniqueName": "D:\\OOP\\C#\\Microservices\\URL-Shortener\\UrlShortener.Api\\UrlShortener.Api.csproj",
       "projectName": "UrlShortener.Api",
-      "projectPath": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Api\\UrlShortener.Api.csproj",
+      "projectPath": "D:\\OOP\\C#\\Microservices\\URL-Shortener\\UrlShortener.Api\\UrlShortener.Api.csproj",
       "packagesPath": "C:\\Users\\Hieu\\.nuget\\packages\\",
-      "outputPath": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Api\\obj\\",
+      "outputPath": "D:\\OOP\\C#\\Microservices\\URL-Shortener\\UrlShortener.Api\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -3014,11 +3014,11 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Core\\UrlShortener.Core.csproj": {
-              "projectPath": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Core\\UrlShortener.Core.csproj"
+            "D:\\OOP\\C#\\Microservices\\URL-Shortener\\UrlShortener.Core\\UrlShortener.Core.csproj": {
+              "projectPath": "D:\\OOP\\C#\\Microservices\\URL-Shortener\\UrlShortener.Core\\UrlShortener.Core.csproj"
             },
-            "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Infrastructure\\UrlShortener.Infrastructure.csproj": {
-              "projectPath": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Infrastructure\\UrlShortener.Infrastructure.csproj"
+            "D:\\OOP\\C#\\Microservices\\URL-Shortener\\UrlShortener.Infrastructure\\UrlShortener.Infrastructure.csproj": {
+              "projectPath": "D:\\OOP\\C#\\Microservices\\URL-Shortener\\UrlShortener.Infrastructure\\UrlShortener.Infrastructure.csproj"
             }
           }
         }

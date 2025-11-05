@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "e/8yodH50nQ=",
+  "dgSpecHash": "pw+8dYFTNf0=",
   "success": true,
-  "projectFilePath": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Core\\UrlShortener.Core.csproj",
+  "projectFilePath": "D:\\OOP\\C#\\Microservices\\URL-Shortener\\UrlShortener.Core\\UrlShortener.Core.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
