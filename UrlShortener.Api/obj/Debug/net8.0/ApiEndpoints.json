@@ -1,0 +1,34 @@
+[
+  {
+    "ContainingType": "UrlShortener.Api.Controllers.ShortLinkController",
+    "Method": "Shorten",
+    "RelativePath": "api/ShortLink/shorten",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "UrlShortener.Api.DTOs.CreateShortLinkDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "UrlShortener.Api.Controllers.ShortLinkController",
+    "Method": "RedirectToOriginal",
+    "RelativePath": "u/{code}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

@@ -1,0 +1,88 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\OOP\\C#\\New folder\\URL-Shortener\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{3B04D16D-66CB-4508-8B41-7A58E975F5ED}|UrlShortener.Core\\UrlShortener.Core.csproj|d:\\oop\\c#\\new folder\\url-shortener\\urlshortener.core\\entities\\shortlink.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{3B04D16D-66CB-4508-8B41-7A58E975F5ED}|UrlShortener.Core\\UrlShortener.Core.csproj|solutionrelative:urlshortener.core\\entities\\shortlink.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{480DF6B4-4717-4C10-AFC3-41D0C5E10C43}|UrlShortener.Infrastructure\\UrlShortener.Infrastructure.csproj|d:\\oop\\c#\\new folder\\url-shortener\\urlshortener.infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{480DF6B4-4717-4C10-AFC3-41D0C5E10C43}|UrlShortener.Infrastructure\\UrlShortener.Infrastructure.csproj|solutionrelative:urlshortener.infrastructure\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA5FF24D-A86D-4D7C-997C-00DAE69DB8FC}|UrlShortener.Api\\UrlShortener.Api.csproj|d:\\oop\\c#\\new folder\\url-shortener\\urlshortener.api\\services\\shortlinkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DA5FF24D-A86D-4D7C-997C-00DAE69DB8FC}|UrlShortener.Api\\UrlShortener.Api.csproj|solutionrelative:urlshortener.api\\services\\shortlinkservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DA5FF24D-A86D-4D7C-997C-00DAE69DB8FC}|UrlShortener.Api\\UrlShortener.Api.csproj|d:\\oop\\c#\\new folder\\url-shortener\\urlshortener.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{DA5FF24D-A86D-4D7C-997C-00DAE69DB8FC}|UrlShortener.Api\\UrlShortener.Api.csproj|solutionrelative:urlshortener.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ShortLink.cs",
+              "DocumentMoniker": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Core\\Entities\\ShortLink.cs",
+              "RelativeDocumentMoniker": "UrlShortener.Core\\Entities\\ShortLink.cs",
+              "ToolTip": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Core\\Entities\\ShortLink.cs",
+              "RelativeToolTip": "UrlShortener.Core\\Entities\\ShortLink.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T19:21:18.803Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Infrastructure\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "UrlShortener.Infrastructure\\AppDbContext.cs",
+              "ToolTip": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Infrastructure\\AppDbContext.cs",
+              "RelativeToolTip": "UrlShortener.Infrastructure\\AppDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T19:20:59.293Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Api\\appsettings.json",
+              "RelativeDocumentMoniker": "UrlShortener.Api\\appsettings.json",
+              "ToolTip": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Api\\appsettings.json",
+              "RelativeToolTip": "UrlShortener.Api\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-11-05T19:20:16.942Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ShortLinkService.cs",
+              "DocumentMoniker": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Api\\Services\\ShortLinkService.cs",
+              "RelativeDocumentMoniker": "UrlShortener.Api\\Services\\ShortLinkService.cs",
+              "ToolTip": "D:\\OOP\\C#\\New folder\\URL-Shortener\\UrlShortener.Api\\Services\\ShortLinkService.cs",
+              "RelativeToolTip": "UrlShortener.Api\\Services\\ShortLinkService.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAQwBkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-05T19:19:52.963Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
