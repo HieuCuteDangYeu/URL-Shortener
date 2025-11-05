@@ -1,5 +1,0 @@
-D:\OOP\C#\Microservices\UrlShortener.Infrastructure\obj\Debug\net9.0\UrlShortener.Infrastructure.csproj.AssemblyReference.cache
-D:\OOP\C#\Microservices\UrlShortener.Infrastructure\obj\Debug\net9.0\UrlShortener.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
-D:\OOP\C#\Microservices\UrlShortener.Infrastructure\obj\Debug\net9.0\UrlShortener.Infrastructure.AssemblyInfoInputs.cache
-D:\OOP\C#\Microservices\UrlShortener.Infrastructure\obj\Debug\net9.0\UrlShortener.Infrastructure.AssemblyInfo.cs
-D:\OOP\C#\Microservices\UrlShortener.Infrastructure\obj\Debug\net9.0\UrlShortener.Infrastructure.csproj.CoreCompileInputs.cache

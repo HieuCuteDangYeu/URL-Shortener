@@ -1,1 +1,7 @@
 .vs/
+.UrlShortener.Api/bin/
+.UrlShortener.Api/obj/
+.UrlShortener.Core/bin/
+.UrlShortener.Core/obj/
+.UrlShortener.Infrastructure/bin/
+.UrlShortener.Infrastructure/obj/
