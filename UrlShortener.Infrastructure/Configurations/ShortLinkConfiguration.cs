@@ -12,6 +12,7 @@ namespace UrlShortener.Infrastructure.Configurations
             b.Property(s => s.OriginalUrl).IsRequired().HasMaxLength(2048);
             b.Property(s => s.ShortCode).IsRequired().HasMaxLength(100);
             b.HasIndex(s => s.ShortCode).IsUnique();
+            b.HasIndex(s => s.OriginalUrl).HasDatabaseName("IX_ShortLinks_OriginalUrl").HasFilter(null);
         }
     }
 }
