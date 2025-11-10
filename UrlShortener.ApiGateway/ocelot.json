@@ -1,0 +1,61 @@
+{
+  "Routes": [
+    {
+      "SwaggerKey": "urlshortenerservice",
+      "UpstreamPathTemplate": "/Url/{short_code}",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/Url/{shortCode}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "urlshortenerservice",
+      "UpstreamPathTemplate": "/Url",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/Url",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "urlshortenerservice",
+      "UpstreamPathTemplate": "/Url",
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/Url",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ]
+    }
+  ],
+  "SwaggerEndPoints": [
+    {
+      "Key": "urlshortenerservice",
+      "Config": [
+        {
+          "Name": "UrlShortener Service",
+          "Version": "v1",
+          "Url": "https://localhost:5001/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5000",
+    "DownstreamOptions": {
+      "DangerousAcceptAnyServerCertificate": true
+    }
+  }
+}

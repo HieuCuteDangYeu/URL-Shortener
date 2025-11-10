@@ -1,7 +1,99 @@
+# ---- .NET & Visual Studio ----
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Tt]emp/
+[Tt]empData/
+TemplateEngineHost/vs/
+
+# Ignore Visual Studio and Rider IDE folders and settings
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 .vs/
-UrlShortener.Api/bin/
-UrlShortener.Api/obj/
-UrlShortener.Core/bin/
-UrlShortener.Core/obj/
-UrlShortener.Infrastructure/bin/
-UrlShortener.Infrastructure/obj/
+
+# Build outputs (applicable for all microservices)
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleasePublic/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+[Bb]uild/
+[Bb]uilds/
+
+# NuGet packages (make sure to restore dependencies, but ignore package caches)
+*.nupkg
+*.snupkg
+*.nuspec
+packages/
+*.nuget.props
+*.nuget.targets
+
+# Ignore Docker and container-specific build outputs
+**/obj/Docker/publish/
+**/obj/Docker/empty/
+docker-compose.override.yml
+
+# Environment files (keep local settings like secrets out of Git)
+.env
+.env.*
+
+# User-specific files
+*.swp
+*.bak
+*.tmp
+*.temp
+*.log
+
+# Publish outputs (for each microservice's output folder)
+**/publish/
+**/out/
+
+# Ignore Azure / AWS / Cloud build artifacts
+*.publishsettings
+*.azurePubxml
+
+# Ignore VS test results (you can enable tests to be tracked)
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+
+# Coverage & analysis tools
+coverage/
+*.coverage
+*.coveragexml
+*.codecoverage
+
+# Ignore sensitive files like local secrets
+secrets.json
+appsettings.json
+
+# ---- Docker & Containerized Files ----
+# Dockerfiles are important but avoid storing intermediate build artifacts.
+**/Dockerfile
+**/docker-compose.yml
+**/Dockerfile.*
+
+# ---- Kubernetes / Helm / Terraform ----
+*.tfstate
+*.tfstate.backup
+.terraform/
+charts/*/charts/
+
+# ---- Optional: If you have Node.js frontend or API Gateway --
+node_modules/
+dist/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# System files that should not be committed
+.DS_Store
+Thumbs.db
+desktop.ini
