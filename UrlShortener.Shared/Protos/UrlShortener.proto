@@ -23,6 +23,7 @@ service UrlShortenerService {
 message CreateShortLinkRequest {
   string original_url = 1;
   string custom_code = 2;
+  int32 user_id = 3;
 }
 
 message CreateShortLinkResponse {
@@ -35,6 +36,7 @@ message CreateShortLinkResponse {
 message GetAllLinksRequest {
   int32 page = 1;
   int32 page_size = 2;
+  int32 user_id = 3;
 }
 
 message GetAllLinksResponse {

@@ -20,7 +20,8 @@ public class UrlShortenerGrpcService(
         {
             var shortLink = await urlShortenerService.CreateShortLinkAsync(
                 request.OriginalUrl,
-                string.IsNullOrEmpty(request.CustomCode) ? null : request.CustomCode
+                string.IsNullOrEmpty(request.CustomCode) ? null : request.CustomCode,
+                request.UserId == 0 ? null : request.UserId
             );
 
             var baseUrl = configuration["BaseUrl"] ?? "https://localhost:5001";
