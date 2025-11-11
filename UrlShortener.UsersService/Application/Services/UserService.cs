@@ -48,6 +48,12 @@ public class UserService(UserDbContext db, IValidator<CreateUserRequest> createV
         return await db.Users.FirstOrDefaultAsync(u => u.Id == id);
     }
 
+    public async Task<Domain.Entities.User?> GetByEmailAsync(string email)
+    {
+        var normalizedEmail = email.Trim().ToLowerInvariant();
+        return await db.Users.FirstOrDefaultAsync(u => u.Email == normalizedEmail);
+    }
+
     public async Task<(List<Domain.Entities.User> Users, int TotalCount)> GetAllAsync(Guid? id, int page, int pageSize)
     {
         var query = db.Users.AsQueryable();

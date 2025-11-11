@@ -40,7 +40,7 @@
       ]
     },
 
-    // UsersService routes (JSON-transcoded proto maps to /v1/users etc.)
+    // UsersService routes (JSON-transcoded proto maps to /users etc.)
     {
       "SwaggerKey": "usersservice",
       "UpstreamPathTemplate": "/users",
@@ -51,6 +51,60 @@
         {
           "Host": "localhost",
           "Port": 5002
+        }
+      ]
+    },
+
+    // AuthService routes (JSON-transcoded proto maps to /auth/* endpoints)
+    {
+      "SwaggerKey": "authservice",
+      "UpstreamPathTemplate": "/auth/register",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/auth/register",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "authservice",
+      "UpstreamPathTemplate": "/auth/login",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/auth/login",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "authservice",
+      "UpstreamPathTemplate": "/auth/refresh",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/auth/refresh",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "authservice",
+      "UpstreamPathTemplate": "/auth/revoke",
+      "UpstreamHttpMethod": [ "POST" ],
+      "DownstreamPathTemplate": "/auth/revoke",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5004
         }
       ]
     }
@@ -83,6 +137,16 @@
           "Name": "Users Service",
           "Version": "v1",
           "Url": "https://localhost:5002/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "authservice",
+      "Config": [
+        {
+          "Name": "Auth Service",
+          "Version": "v1",
+          "Url": "https://localhost:5004/swagger/v1/swagger.json"
         }
       ]
     }

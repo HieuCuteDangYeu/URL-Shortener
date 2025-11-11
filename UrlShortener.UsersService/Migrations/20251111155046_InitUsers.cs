@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace UrlShortener.UsersService.Migrations
 {
     /// <inheritdoc />
-    public partial class AddUsers : Migration
+    public partial class InitUsers : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
