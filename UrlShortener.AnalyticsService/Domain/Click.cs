@@ -9,7 +9,7 @@
 
         public string? Browser { get; set; }
         public string? Referer { get; set; }
-        public DateTime OccurredAt { get; set; }
+        public DateTime CreatedAt { get; set; }
 
     }
 }

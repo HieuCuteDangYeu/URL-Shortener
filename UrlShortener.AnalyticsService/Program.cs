@@ -44,7 +44,7 @@ app.MapGet("/", () => "Analytics Service - gRPC");
 var broker = app.Services.GetRequiredService<IMessageBroker>();
 var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 
-broker.Subscribe<ShortLinkClickedEvent>("shortlink-clicked", ev =>
+broker.Subscribe<ShortLinkClickedEvent>("url-clicked", ev =>
 {
     using var scope = scopeFactory.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AnalyticsDbContext>();
@@ -52,7 +52,7 @@ broker.Subscribe<ShortLinkClickedEvent>("shortlink-clicked", ev =>
     {
         Id = Guid.NewGuid(),
         ShortCode = ev.ShortCode,
-        OccurredAt = ev.OccurredAt,
+        CreatedAt = ev.CreatedAt,
         UserId = ev.UserId,
         UserAgent = ev.UserAgent,
         Browser = string.IsNullOrWhiteSpace(ev.Browser) ? "Unknown" : ev.Browser,

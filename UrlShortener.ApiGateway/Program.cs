@@ -8,6 +8,15 @@ builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
+// CORS for the front-end
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("Frontend", p =>
+        p.AllowAnyOrigin()
+         .AllowAnyHeader()
+         .AllowAnyMethod());
+});
+
 // Add services
 builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddSwaggerForOcelot(builder.Configuration);
@@ -19,6 +28,9 @@ if (builder.Environment.IsDevelopment())
 }
 
 var app = builder.Build();
+
+// CORS must be before Ocelot
+app.UseCors("Frontend");
 
 // Configure pipeline
 if (app.Environment.IsDevelopment())

@@ -98,12 +98,12 @@ public class AnalyticsService(AnalyticsDbContext db) : IAnalyticsService
         days = days <= 0 ? 7 : days;
         var from = DateTime.UtcNow.Date.AddDays(-(days - 1));
 
-        var query = db.Clicks.Where(c => c.OccurredAt >= from);
+        var query = db.Clicks.Where(c => c.CreatedAt >= from);
         if (!string.IsNullOrWhiteSpace(shortCode))
             query = query.Where(c => c.ShortCode == shortCode);
 
         var grouped = await query
-            .GroupBy(c => c.OccurredAt.Date)
+            .GroupBy(c => c.CreatedAt.Date)
             .Select(g => new { Date = g.Key, Count = g.LongCount() })
             .ToListAsync(ct);
 
