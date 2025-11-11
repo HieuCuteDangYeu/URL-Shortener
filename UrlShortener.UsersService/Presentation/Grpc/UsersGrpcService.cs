@@ -139,4 +139,27 @@ public class UsersGrpcService(IUserService userService, IMessageBroker messageBr
 
         return new Empty();
     }
+
+    public override async Task<UserWithCredentials> GetUserByEmail(GetUserByEmailRequest request, ServerCallContext context)
+    {
+        if (string.IsNullOrWhiteSpace(request.Email))
+            throw new RpcException(new Status(StatusCode.InvalidArgument, "Email is required"));
+
+        var user = await userService.GetByEmailAsync(request.Email);
+
+        if (user == null)
+            throw new RpcException(new Status(StatusCode.NotFound, "User not found"));
+
+        return new UserWithCredentials
+        {
+            Id = user.Id.ToString(),
+            FirstName = user.FirstName,
+            LastName = user.LastName,
+            Email = user.Email,
+            PhoneNumber = user.PhoneNumber ?? string.Empty,
+            Role = user.Role,
+            PasswordHash = user.PasswordHash,
+            PasswordSalt = user.PasswordSalt
+        };
+    }
 }

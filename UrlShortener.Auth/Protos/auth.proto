@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+import "google/api/annotations.proto";
+import "google/protobuf/empty.proto";
+
+option csharp_namespace = "UrlShortener.Auth.Protos";
+
+package auth;
+
+// Authentication Service
+service AuthService {
+  // Register a new user
+  rpc Register(RegisterRequest) returns (AuthResponse) {
+    option (google.api.http) = {
+      post: "/auth/register"
+      body: "*"
+    };
+  }
+
+  // Login with email and password
+  rpc Login(LoginRequest) returns (AuthResponse) {
+    option (google.api.http) = {
+      post: "/auth/login"
+      body: "*"
+    };
+  }
+
+  // Refresh access token using refresh token
+  rpc RefreshToken(RefreshTokenRequest) returns (AuthResponse) {
+    option (google.api.http) = {
+      post: "/auth/refresh"
+      body: "*"
+    };
+  }
+
+  // Revoke a refresh token
+  rpc RevokeToken(RevokeTokenRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/auth/revoke"
+      body: "*"
+    };
+  }
+}
+
+// Register Request
+message RegisterRequest {
+  string firstName = 1;
+  string lastName = 2;
+  string email = 3;
+  string password = 4;
+  string phoneNumber = 5;
+}
+
+// Login Request
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+// Refresh Token Request
+message RefreshTokenRequest {
+  string refreshToken = 1;
+}
+
+// Revoke Token Request
+message RevokeTokenRequest {
+  string refreshToken = 1;
+}
+
+// Authentication Response
+message AuthResponse {
+  string accessToken = 1;
+  string refreshToken = 2;
+  string userId = 3;
+  string email = 4;
+  string firstName = 5;
+  string lastName = 6;
+  string role = 7;
+  int64 expiresIn = 8; // Access token expiry in seconds
+}

@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.AnalyticsServi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.UsersService", "UrlShortener.UsersService\UrlShortener.UsersService.csproj", "{3C3AB57D-E48F-4C66-BA59-C3741B5E37C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Auth", "UrlShortener.Auth\UrlShortener.Auth.csproj", "{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,18 @@ Global
 		{3C3AB57D-E48F-4C66-BA59-C3741B5E37C5}.Release|x64.Build.0 = Release|Any CPU
 		{3C3AB57D-E48F-4C66-BA59-C3741B5E37C5}.Release|x86.ActiveCfg = Release|Any CPU
 		{3C3AB57D-E48F-4C66-BA59-C3741B5E37C5}.Release|x86.Build.0 = Release|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Debug|x64.Build.0 = Debug|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Debug|x86.Build.0 = Debug|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Release|x64.ActiveCfg = Release|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Release|x64.Build.0 = Release|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Release|x86.ActiveCfg = Release|Any CPU
+		{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
