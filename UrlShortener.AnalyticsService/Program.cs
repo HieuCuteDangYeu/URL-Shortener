@@ -15,6 +15,7 @@ builder.WebHost.ConfigureKestrel(options =>
     options.ListenAnyIP(5005, listenOptions =>
     {
         listenOptions.Protocols = HttpProtocols.Http1AndHttp2;
+        listenOptions.UseHttps(); // <-- enable HTTPS for this endpoint (development)
     });
 });
 
@@ -65,7 +66,7 @@ if (!string.IsNullOrEmpty(configuredUrls) &&
 
 app.UseRouting();
 
-app.MapControllers();               // JSON-transcoded REST endpoints from protos
+app.MapControllers(); // JSON-transcoded REST endpoints from protos
 app.MapGrpcService<AnalyticsGrpcService>();
 app.MapGet("/", () => "Analytics Service - gRPC");
 
