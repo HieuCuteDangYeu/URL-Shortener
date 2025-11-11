@@ -1,11 +1,11 @@
 ﻿using FluentValidation;
-using UrlShortener.UserService.Application.Requests;
+using UrlShortener.Shared.Protos;
 
 namespace UrlShortener.UserService.Application.Validators;
 
 public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
 {
-    private static readonly string[] AllowedRoles = new[] { "User", "Admin" };
+    private static readonly string[] AllowedRoles = ["User", "Admin"];
 
     public CreateUserRequestValidator()
     {
@@ -22,9 +22,5 @@ public class CreateUserRequestValidator : AbstractValidator<CreateUserRequest>
             .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
             .Matches("[0-9]").WithMessage("Password must contain at least one number")
             .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one special character");
-
-        RuleFor(x => x.ConfirmPassword)
-            .NotEmpty().WithMessage("ConfirmPassword is required")
-            .Equal(x => x.Password).WithMessage("Passwords do not match");
     }
 }

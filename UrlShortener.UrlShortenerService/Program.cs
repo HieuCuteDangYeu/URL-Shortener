@@ -14,7 +14,7 @@ builder.Services.AddGrpc().AddJsonTranscoding();
 builder.Services.AddGrpcSwagger();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new() { Title = "UrlShortenerService", Version = "v1" });
+    c.SwaggerDoc("v1", new() { Title = "UrlShortener Service", Version = "v1" });
 });
 
 
@@ -37,7 +37,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "UrlShortenerService v1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Url ShortenerService v1");
     });
 }
 

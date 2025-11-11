@@ -5,33 +5,30 @@ using UrlShortener.AnalyticsService.Infrastructure.Persistence;
 
 namespace UrlShortener.AnalyticsService.Application.Services;
 
-public class ClickRepository : IClickRepository
+public class ClickRepository(AnalyticsDbContext db) : IClickRepository
 {
-    private readonly AnalyticsDbContext _db;
-    public ClickRepository(AnalyticsDbContext db) => _db = db;
-
     public async Task AddAsync(ClickRecord record)
     {
-        await _db.ClickRecords.AddAsync(record);
-        await _db.SaveChangesAsync();
+        await db.ClickRecords.AddAsync(record);
+        await db.SaveChangesAsync();
     }
 
     public async Task<IEnumerable<ClickRecord>> GetByPeriodAsync(DateTimeOffset from, DateTimeOffset to)
     {
-        return await _db.ClickRecords
+        return await db.ClickRecords
             .Where(c => c.Timestamp >= from && c.Timestamp <= to)
             .ToListAsync();
     }
 
     public async Task<int> CountClicksAsync(DateTimeOffset from, DateTimeOffset to)
     {
-        return await _db.ClickRecords
+        return await db.ClickRecords
             .CountAsync(c => c.Timestamp >= from && c.Timestamp <= to);
     }
 
     public async Task<Dictionary<string, int>> BrowserDistributionAsync(DateTimeOffset from, DateTimeOffset to)
     {
-        return await _db.ClickRecords
+        return await db.ClickRecords
             .Where(c => c.Timestamp >= from && c.Timestamp <= to)
             .GroupBy(c => c.Browser)
             .Select(g => new { Browser = g.Key, Count = g.Count() })
@@ -40,7 +37,7 @@ public class ClickRepository : IClickRepository
 
     public async Task<Dictionary<string, int>> DeviceDistributionAsync(DateTimeOffset from, DateTimeOffset to)
     {
-        return await _db.ClickRecords
+        return await db.ClickRecords
             .Where(c => c.Timestamp >= from && c.Timestamp <= to)
             .GroupBy(c => c.Device)
             .Select(g => new { Device = g.Key, Count = g.Count() })
@@ -49,7 +46,7 @@ public class ClickRepository : IClickRepository
 
     public async Task<List<(string ShortUrlId, int Count)>> GetTopLinksAsync(DateTimeOffset from, DateTimeOffset to, int limit)
     {
-        var list = await _db.ClickRecords
+        var list = await db.ClickRecords
             .Where(c => c.Timestamp >= from && c.Timestamp <= to)
             .GroupBy(c => c.ShortUrlId)
             .Select(g => new { ShortUrlId = g.Key, Count = g.Count() })
@@ -62,7 +59,7 @@ public class ClickRepository : IClickRepository
 
     public async Task<IEnumerable<string>> GetUsersAsync()
     {
-        return await _db.ClickRecords
+        return await db.ClickRecords
             .Where(c => !string.IsNullOrEmpty(c.UserId))
             .Select(c => c.UserId!)
             .Distinct()

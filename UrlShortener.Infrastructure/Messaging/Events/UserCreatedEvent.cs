@@ -1,12 +1,11 @@
-﻿namespace UrlShortener.UserService.Application.Responses;
+﻿namespace UrlShortener.Infrastructure.Messaging.Events;
 
-public class UserDto
+public class UserCreatedEvent
 {
     public Guid Id { get; set; }
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public string? PhoneNumber { get; set; }
-    public string Role { get; set; } = "User";
+    public string Role { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; }
 }

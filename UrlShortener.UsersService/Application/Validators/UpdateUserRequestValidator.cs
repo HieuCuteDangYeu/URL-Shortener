@@ -1,16 +1,17 @@
 ﻿using FluentValidation;
-using UrlShortener.UserService.Application.Requests;
+using UrlShortener.Shared.Protos;
 
 namespace UrlShortener.UserService.Application.Validators;
 
 public class UpdateUserRequestValidator : AbstractValidator<UpdateUserRequest>
 {
-    private static readonly string[] AllowedRoles = new[] { "User", "Admin" };
+    private static readonly string[] AllowedRoles = ["User", "Admin"];
 
     public UpdateUserRequestValidator()
     {
         RuleFor(x => x.FirstName).MaximumLength(100).When(x => x.FirstName != null);
         RuleFor(x => x.LastName).MaximumLength(100).When(x => x.LastName != null);
+        RuleFor(x => x.Email).NotEmpty().EmailAddress().MaximumLength(256);
         RuleFor(x => x.PhoneNumber).MaximumLength(32).When(x => x.PhoneNumber != null);
         RuleFor(x => x.Role).Must(r => r == null || AllowedRoles.Contains(r)).WithMessage("Role must be User or Admin");
 

@@ -1,12 +1,9 @@
 ﻿using FluentValidation;
 using System.Security.Cryptography;
 using UrlShortener.UserService.Application.Interfaces;
-using UrlShortener.UserService.Application.Requests;
-using UrlShortener.UserService.Application.Responses;
-using UrlShortener.UserService.Domain.Entities;
 using UrlShortener.UserService.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-
+using UrlShortener.Shared.Protos;
 
 namespace UrlShortener.UserService.Application.Services;
 
@@ -16,26 +13,26 @@ public class UserService(UserDbContext db, IValidator<CreateUserRequest> createV
     private const int SaltSize = 16;
     private const int HashSize = 32;
 
-    public async Task<UserDto> CreateAsync(CreateUserRequest request)
+    public async Task<Domain.Entities.User> CreateAsync(CreateUserRequest request)
     {
         var result = await createValidator.ValidateAsync(request);
         if (!result.IsValid) throw new ValidationException(result.Errors);
 
-        var exists = await db.Users.AnyAsync(u => u.Email.ToLower() == request.Email.Trim().ToLower());
+        var normalizedEmail = request.Email.Trim().ToLowerInvariant();
+        var exists = await db.Users.AnyAsync(u => u.Email == normalizedEmail);
         if (exists) throw new InvalidOperationException("Email already in use");
 
         var salt = GenerateSalt();
         var hash = HashPassword(request.Password, salt);
 
-        var user = new User
+        var user = new Domain.Entities.User
         {
             Id = Guid.NewGuid(),
             FirstName = request.FirstName.Trim(),
             LastName = request.LastName.Trim(),
-            Email = request.Email.Trim().ToLowerInvariant(),
+            Email = normalizedEmail,
             PhoneNumber = string.IsNullOrWhiteSpace(request.PhoneNumber) ? null : request.PhoneNumber.Trim(),
             Role = string.IsNullOrWhiteSpace(request.Role) ? "User" : request.Role,
-            CreatedAt = DateTime.UtcNow,
             PasswordSalt = salt,
             PasswordHash = hash
         };
@@ -43,33 +40,35 @@ public class UserService(UserDbContext db, IValidator<CreateUserRequest> createV
         await db.Users.AddAsync(user);
         await db.SaveChangesAsync();
 
-        return Map(user);
+        return user;
     }
 
-    public async Task<UserDto?> GetByIdAsync(Guid id)
+    public async Task<Domain.Entities.User?> GetByIdAsync(Guid id)
     {
-        var user = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
-        return user == null ? null : Map(user);
+        return await db.Users.FirstOrDefaultAsync(u => u.Id == id);
     }
 
-    public async Task<(List<UserDto> Users, int TotalCount)> GetAllAsync(int page, int pageSize)
+    public async Task<(List<Domain.Entities.User> Users, int TotalCount)> GetAllAsync(Guid? id, int page, int pageSize)
     {
-        page = Math.Max(1, page);
-        pageSize = Math.Clamp(pageSize, 1, 100);
-
         var query = db.Users.AsQueryable();
-        var total = await query.CountAsync();
 
-        var list = await query
+        if (id.HasValue)
+        {
+            query = query.Where(u => u.Id == id.Value);
+        }
+
+        var totalCount = await query.CountAsync();
+
+        var links = await query
             .OrderByDescending(u => u.CreatedAt)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();
 
-        return (list.Select(Map).ToList(), total);
+        return (links, totalCount);
     }
 
-    public async Task<UserDto?> UpdateAsync(Guid id, UpdateUserRequest request)
+    public async Task<Domain.Entities.User?> UpdateAsync(Guid id, UpdateUserRequest request)
     {
         var validation = await updateValidator.ValidateAsync(request);
         if (!validation.IsValid) throw new ValidationException(validation.Errors);
@@ -77,12 +76,22 @@ public class UserService(UserDbContext db, IValidator<CreateUserRequest> createV
         var user = await db.Users.FirstOrDefaultAsync(u => u.Id == id);
         if (user == null) return null;
 
-        if (!string.IsNullOrWhiteSpace(request.FirstName)) user.FirstName = request.FirstName.Trim();
-        if (!string.IsNullOrWhiteSpace(request.LastName)) user.LastName = request.LastName.Trim();
-        if (request.PhoneNumber != null) user.PhoneNumber = string.IsNullOrWhiteSpace(request.PhoneNumber) ? null : request.PhoneNumber.Trim();
-        if (!string.IsNullOrWhiteSpace(request.Role)) user.Role = request.Role;
+        if (request.FirstName != null)
+            user.FirstName = request.FirstName.Trim();
 
-        if (!string.IsNullOrEmpty(request.Password))
+        if (request.LastName != null)
+            user.LastName = request.LastName.Trim();
+
+        if (request.PhoneNumber != null)
+            user.PhoneNumber = string.IsNullOrWhiteSpace(request.PhoneNumber) ? null : request.PhoneNumber.Trim();
+
+        if (request.Role != null)
+            user.Role = request.Role.Trim();
+
+        if (request.Email != null)
+            user.Email = request.Email.Trim().ToLowerInvariant();
+
+        if (request.Password != null)
         {
             var newSalt = GenerateSalt();
             var newHash = HashPassword(request.Password, newSalt);
@@ -93,8 +102,9 @@ public class UserService(UserDbContext db, IValidator<CreateUserRequest> createV
         db.Users.Update(user);
         await db.SaveChangesAsync();
 
-        return Map(user);
+        return user;
     }
+
 
     public async Task<bool> DeleteAsync(Guid id)
     {
@@ -105,15 +115,6 @@ public class UserService(UserDbContext db, IValidator<CreateUserRequest> createV
         return true;
     }
 
-    public async Task<UserDto?> AuthenticateAsync(string email, string password)
-    {
-        var user = await db.Users.FirstOrDefaultAsync(u => u.Email == email.ToLowerInvariant());
-        if (user == null) return null;
-        if (!VerifyPassword(password, user.PasswordSalt, user.PasswordHash)) return null;
-        return Map(user);
-    }
-
-    // Hash helpers
     private static string GenerateSalt()
     {
         var salt = RandomNumberGenerator.GetBytes(SaltSize);
@@ -135,15 +136,4 @@ public class UserService(UserDbContext db, IValidator<CreateUserRequest> createV
         var b = Convert.FromBase64String(expectedHash);
         return CryptographicOperations.FixedTimeEquals(a, b);
     }
-
-    private static UserDto Map(User u) => new()
-    {
-        Id = u.Id,
-        FirstName = u.FirstName,
-        LastName = u.LastName,
-        Email = u.Email,
-        PhoneNumber = u.PhoneNumber,
-        Role = u.Role,
-        CreatedAt = u.CreatedAt
-    };
 }

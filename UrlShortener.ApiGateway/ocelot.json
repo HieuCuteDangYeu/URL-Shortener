@@ -69,48 +69,9 @@
     // UsersService routes (JSON-transcoded proto maps to /v1/users etc.)
     {
       "SwaggerKey": "usersservice",
-      "UpstreamPathTemplate": "/v1/users",
-      "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/v1/users",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ]
-    },
-    {
-      "SwaggerKey": "usersservice",
-      "UpstreamPathTemplate": "/v1/users",
-      "UpstreamHttpMethod": [ "POST" ],
-      "DownstreamPathTemplate": "/v1/users",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ]
-    },
-    {
-      "SwaggerKey": "usersservice",
-      "UpstreamPathTemplate": "/v1/users/{id}",
-      "UpstreamHttpMethod": [ "GET", "PUT", "DELETE" ],
-      "DownstreamPathTemplate": "/v1/users/{id}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5002
-        }
-      ]
-    },
-    {
-      "SwaggerKey": "usersservice",
-      "UpstreamPathTemplate": "/v1/users:authenticate",
-      "UpstreamHttpMethod": [ "POST" ],
-      "DownstreamPathTemplate": "/v1/users:authenticate",
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "POST", "GET", "PATCH", "DELETE" ],
+      "DownstreamPathTemplate": "/users",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
