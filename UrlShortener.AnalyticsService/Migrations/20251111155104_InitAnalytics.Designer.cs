@@ -12,7 +12,7 @@ using UrlShortener.AnalyticsService.Infrastructure.Persistence;
 namespace UrlShortener.AnalyticsService.Migrations
 {
     [DbContext(typeof(AnalyticsDbContext))]
-    [Migration("20251111123358_InitAnalytics")]
+    [Migration("20251111155104_InitAnalytics")]
     partial class InitAnalytics
     {
         /// <inheritdoc />

@@ -12,8 +12,8 @@ using UrlShortener.Auth.Infrastructure.Persistence;
 namespace UrlShortener.Auth.Migrations
 {
     [DbContext(typeof(AuthDbContext))]
-    [Migration("20251111120825_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20251111155011_InitAuth")]
+    partial class InitAuth
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
