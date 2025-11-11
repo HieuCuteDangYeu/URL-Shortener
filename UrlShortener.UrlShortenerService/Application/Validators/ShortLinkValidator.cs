@@ -13,7 +13,7 @@ namespace UrlShortener.UrlShortenerService.Application.Validators
                 .Must(BeAValidUrl).WithMessage("OriginalUrl must be a valid http/https URL");
 
             RuleFor(x => x.CustomCode)
-                .Length(3, 10).When(x => !string.IsNullOrEmpty(x.CustomCode))
+                .Length(6).When(x => !string.IsNullOrEmpty(x.CustomCode))
                 .Matches("^[a-zA-Z0-9_-]+$").When(x => !string.IsNullOrEmpty(x.CustomCode))
                 .WithMessage("CustomCode must be 3-10 chars, letters/numbers/_/- only");
         }
