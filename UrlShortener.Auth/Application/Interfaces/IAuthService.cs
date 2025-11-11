@@ -1,4 +1,4 @@
-using UrlShortener.Auth.Protos;
+using UrlShortener.Shared.Protos;
 
 namespace UrlShortener.Auth.Application.Interfaces;
 

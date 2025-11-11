@@ -3,7 +3,7 @@ syntax = "proto3";
 import "google/api/annotations.proto";
 import "google/protobuf/empty.proto";
 
-option csharp_namespace = "UrlShortener.Auth.Protos";
+option csharp_namespace = "UrlShortener.Shared.Protos";
 
 package auth;
 
@@ -76,5 +76,5 @@ message AuthResponse {
   string firstName = 5;
   string lastName = 6;
   string role = 7;
-  int64 expiresIn = 8; // Access token expiry in seconds
+  int64 expiresIn = 8;
 }

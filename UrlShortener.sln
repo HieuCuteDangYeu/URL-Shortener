@@ -19,9 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Infrastructure
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.UrlShortenerService", "UrlShortener.UrlShortenerService\UrlShortener.UrlShortenerService.csproj", "{A240F821-56C0-E2A6-4E90-ABD402287DE8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.UsersService", "UrlShortener.UsersService\UrlShortener.UsersService.csproj", "{3C3AB57D-E48F-4C66-BA59-C3741B5E37C5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.UserService", "UrlShortener.UsersService\UrlShortener.UserService.csproj", "{3C3AB57D-E48F-4C66-BA59-C3741B5E37C5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Auth", "UrlShortener.Auth\UrlShortener.Auth.csproj", "{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.AuthService", "UrlShortener.Auth\UrlShortener.AuthService.csproj", "{ACAE7FC1-83EE-41B5-95A4-513FC3C9F5D1}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.AnalyticsService", "UrlShortener.AnalyticsService\UrlShortener.AnalyticsService.csproj", "{94D8027F-371B-4F99-9E57-21124562BCBA}"
 EndProject
 Global

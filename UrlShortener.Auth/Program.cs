@@ -5,9 +5,8 @@ using UrlShortener.Auth.Application.Validators;
 using UrlShortener.Auth.Infrastructure.Persistence;
 using UrlShortener.Auth.Infrastructure.Security;
 using UrlShortener.Auth.Presentation.Grpc;
-using UrlShortener.Auth.Protos;
-using UrlShortener.Infrastructure.Messaging;
 using UrlShortener.Shared.Protos;
+using UrlShortener.Infrastructure.Messaging;
 
 var builder = WebApplication.CreateBuilder(args);
 
