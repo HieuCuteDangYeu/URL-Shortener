@@ -40,8 +40,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<!-- Auth Service proto (Server) -->
-		<Protobuf Include="Protos\auth.proto" GrpcServices="Server" ProtoRoot="Protos" />
+		<!-- Auth Service proto (Server) - moved to Shared -->
+		<Protobuf Include="..\UrlShortener.Shared\Protos\Auth.proto" GrpcServices="Server" Link="Protos\Auth.proto" ProtoRoot="..\UrlShortener.Shared\Protos" />
 		<Protobuf Include="Protos\google\api\annotations.proto" ProtoRoot="Protos" />
 		<Protobuf Include="Protos\google\api\http.proto" ProtoRoot="Protos" />
 
