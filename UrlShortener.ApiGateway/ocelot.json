@@ -2,34 +2,8 @@
   "Routes": [
     {
       "SwaggerKey": "urlshortenerservice",
-      "UpstreamPathTemplate": "/Url/{short_code}",
-      "UpstreamHttpMethod": [ "GET" ],
-      "DownstreamPathTemplate": "/Url/{shortCode}",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ]
-    },
-    {
-      "SwaggerKey": "urlshortenerservice",
       "UpstreamPathTemplate": "/Url",
-      "UpstreamHttpMethod": [ "POST" ],
-      "DownstreamPathTemplate": "/Url",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5001
-        }
-      ]
-    },
-    {
-      "SwaggerKey": "urlshortenerservice",
-      "UpstreamPathTemplate": "/Url",
-      "UpstreamHttpMethod": [ "GET" ],
+      "UpstreamHttpMethod": [ "GET", "POST" ],
       "DownstreamPathTemplate": "/Url",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [

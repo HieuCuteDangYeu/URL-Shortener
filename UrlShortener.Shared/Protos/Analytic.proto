@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+option csharp_namespace = "UrlShortener.Shared.Protos";
+
+package urlshortener.analytics;
+
+import "google/protobuf/empty.proto";
+import "google/api/annotations.proto";
+
+// Service definition
+service AnalyticsService {
+  rpc GetOverview (google.protobuf.Empty) returns (AnalyticsOverview) {
+    option (google.api.http) = {
+      get: "/overviews"
+    };
+  }
+
+  rpc GetTopLinks (TopLinksRequest) returns (TopLinksResponse) {
+    option (google.api.http) = {
+      get: "/top-links"
+    };
+  }
+
+  rpc GetBrowserDistribution (google.protobuf.Empty) returns (BrowserDistributionResponse) {
+    option (google.api.http) = {
+      get: "/browser-distribution"
+    };
+  }
+
+  rpc GetLinkTimeline (LinkTimelineRequest) returns (LinkTimelineResponse) {
+    option (google.api.http) = {
+      get: "/link-timeline"
+    };
+  }
+}
+
+message AnalyticsOverview {
+  int64 total_clicks = 1;
+  int32 total_links = 2;
+  int32 total_users = 3;
+  repeated BrowserStat browsers = 4;
+  repeated TopLink top_links = 5;
+}
+
+// Request / Response messages
+message TopLinksRequest {
+  int32 limit = 1; // default 10 (handled server side)
+}
+
+message TopLinksResponse {
+  repeated TopLink links = 1;
+}
+
+message BrowserDistributionResponse {
+  repeated BrowserStat browsers = 1;
+}
+
+message LinkTimelineRequest {
+  string short_code = 1;  // optional; if empty -> global timeline
+  int32 days = 2;         // last N days (default 7)
+}
+
+message LinkTimelineResponse {
+  string short_code = 1;
+  repeated TimelinePoint points = 2;
+}
+
+// Data messages
+message TopLink {
+  string short_code = 1;
+  int64 clicks = 2;
+}
+
+message BrowserStat {
+  string browser = 1;
+  int64 clicks = 2;
+  double percentage = 3;
+}
+
+message TimelinePoint {
+  string date = 1; // ISO yyyy-MM-dd
+  int64 clicks = 2;
+}

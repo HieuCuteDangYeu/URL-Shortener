@@ -10,12 +10,13 @@ public class UrlShortenerService(ApplicationDbContext context, IValidator<Create
 {
     private const string Characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-    public async Task<Domain.Entities.ShortLink> CreateShortLinkAsync(string originalUrl, string? customCode = null)
+    public async Task<Domain.Entities.ShortLink> CreateShortLinkAsync(string originalUrl, string? customCode = null, Guid? userId = null)
     {
         var dto = new CreateShortLinkRequest 
         { 
             OriginalUrl = originalUrl, 
-            CustomCode = customCode ?? "" 
+            CustomCode = customCode ?? string.Empty,
+            UserId = userId?.ToString() ?? string.Empty,
         };
 
         FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(dto);
@@ -37,7 +38,8 @@ public class UrlShortenerService(ApplicationDbContext context, IValidator<Create
             ShortCode = shortCode,
             OriginalUrl = originalUrl,
             CreatedAt = DateTime.UtcNow,
-            ClickCount = 0
+            ClickCount = 0,
+            UserId = userId
         };
             
         context.ShortLinks.Add(shortLink);
@@ -52,9 +54,15 @@ public class UrlShortenerService(ApplicationDbContext context, IValidator<Create
             .FirstOrDefaultAsync(x => x.ShortCode == shortCode);
     }
 
-    public async Task<(List<Domain.Entities.ShortLink> Links, int TotalCount)> GetAllLinksAsync(int page, int pageSize)
+    public async Task<(List<Domain.Entities.ShortLink> Links, int TotalCount)> GetAllLinksAsync(int page, int pageSize, Guid? userId = null)
     {
         var query = context.ShortLinks.AsQueryable();
+
+        if (userId.HasValue)
+        {
+            query = query.Where(x => x.UserId == userId.Value);
+        }
+
         var totalCount = await query.CountAsync();
 
         var links = await query

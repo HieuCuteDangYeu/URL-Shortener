@@ -11,12 +11,6 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<ShortLink>(entity =>
-        {
-            entity.HasKey(e => e.Id);
-            entity.HasIndex(e => e.ShortCode).IsUnique();
-            entity.Property(e => e.ShortCode).HasMaxLength(10);
-            entity.Property(e => e.OriginalUrl).HasMaxLength(2048);
-        });
+        modelBuilder.Entity<ShortLink>().HasIndex(e => e.ShortCode).IsUnique();
     }
 }
