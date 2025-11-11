@@ -38,6 +38,47 @@
           "Port": 5001
         }
       ]
+    },
+    {
+      "SwaggerKey": "analyticsservice",
+      "UpstreamPathTemplate": "/analytics",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "DownstreamPathTemplate": "/",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5005
+        }
+      ]
+    },
+    {
+      "SwaggerKey": "analyticsservice",
+      "UpstreamPathTemplate": "/analytics/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "DownstreamPathTemplate": "/{everything}",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5005
+        }
+      ]
+    },
+
+    // UsersService routes (JSON-transcoded proto maps to /v1/users etc.)
+    {
+      "SwaggerKey": "usersservice",
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "POST", "GET", "PATCH", "DELETE" ],
+      "DownstreamPathTemplate": "/users",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5002
+        }
+      ]
     }
   ],
   "SwaggerEndPoints": [
@@ -48,6 +89,26 @@
           "Name": "UrlShortener Service",
           "Version": "v1",
           "Url": "https://localhost:5001/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "analyticsservice",
+      "Config": [
+        {
+          "Name": "Analytics Service",
+          "Version": "v1",
+          "Url": "https://localhost:5005/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "usersservice",
+      "Config": [
+        {
+          "Name": "Users Service",
+          "Version": "v1",
+          "Url": "https://localhost:5002/swagger/v1/swagger.json"
         }
       ]
     }
