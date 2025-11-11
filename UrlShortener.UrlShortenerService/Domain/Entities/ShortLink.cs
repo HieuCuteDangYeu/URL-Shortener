@@ -23,6 +23,6 @@ namespace UrlShortener.UrlShortenerService.Domain.Entities
         [Range(0, int.MaxValue, ErrorMessage = "Click count cannot be negative")]
         public int ClickCount { get; set; } = 0;
         [Range(0, int.MaxValue, ErrorMessage = "User ID cannot be negative")]
-        public int? UserId { get; set; }
+        public Guid? UserId { get; set; } = null;
     }
 }
