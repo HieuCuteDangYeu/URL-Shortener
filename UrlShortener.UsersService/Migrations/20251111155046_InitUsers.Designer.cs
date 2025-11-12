@@ -12,8 +12,8 @@ using UrlShortener.UserService.Infrastructure.Persistence;
 namespace UrlShortener.UsersService.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20251111040514_AddUsers")]
-    partial class AddUsers
+    [Migration("20251111155046_InitUsers")]
+    partial class InitUsers
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

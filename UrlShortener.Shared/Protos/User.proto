@@ -55,6 +55,21 @@ message DeleteUserRequest {
   string id = 1;
 }
 
+message GetUserByEmailRequest {
+  string email = 1;
+}
+
+message UserWithCredentials {
+  string id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  string email = 4;
+  string phoneNumber = 5;
+  string role = 6;
+  string passwordHash = 7;
+  string passwordSalt = 8;
+}
+
 service UserService {
   rpc CreateUser(CreateUserRequest) returns (User) {
     option (google.api.http) = {
@@ -79,6 +94,13 @@ service UserService {
   rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty) {
     option (google.api.http) = {
       delete: "/users"
+    };
+  }
+
+  // Internal endpoint for Auth service - returns user with password credentials
+  rpc GetUserByEmail(GetUserByEmailRequest) returns (UserWithCredentials) {
+    option (google.api.http) = {
+      get: "/users/by-email/{email}"
     };
   }
 }
