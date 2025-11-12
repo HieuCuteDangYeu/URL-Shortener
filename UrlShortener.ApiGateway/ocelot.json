@@ -31,7 +31,14 @@
           "Host": "localhost",
           "Port": 5001
         }
-      ]
+      ],
+      "RateLimitOptions": {
+        "EnableRateLimiting": true,
+        "ClientWhitelist": [],
+        "Period": "30m",
+        "PeriodTimespan": 300,
+        "Limit": 10
+      }
     },
     {
       "SwaggerKey": "urlshortenerservice",

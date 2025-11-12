@@ -20,16 +20,6 @@ public class UrlShortenerGrpcService(
     {
         try
         {
-            Guid? userId = null;
-            if (!string.IsNullOrEmpty(request.UserId))
-            {
-                if (!Guid.TryParse(request.UserId, out var parsedGuid))
-                {
-                    throw new RpcException(new Status(StatusCode.InvalidArgument, "Invalid UserId format."));
-                }
-                userId = parsedGuid;
-            }
-
             var shortLink = await urlShortenerService.CreateShortLinkAsync(request.OriginalUrl);
 
             var baseUrl = configuration["BaseUrl"] ?? "https://localhost:5001";
@@ -131,7 +121,7 @@ public class UrlShortenerGrpcService(
     }
 
     public override async Task<CreateShortLinkResponse> CreateShortLinkByUserId(
-        CreateShortLinkRequest request,
+        CreateShortLinkByUserIdRequest request,
         ServerCallContext context)
     {
         try

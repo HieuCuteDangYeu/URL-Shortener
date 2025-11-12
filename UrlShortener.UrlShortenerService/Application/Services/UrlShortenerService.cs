@@ -6,20 +6,38 @@ using UrlShortener.UrlShortenerService.Infrastructure.Persistance;
 
 namespace UrlShortener.UrlShortenerService.Application.Services;
 
-public class UrlShortenerService(ApplicationDbContext context, IValidator<CreateShortLinkRequest> validator) : IUrlShortenerService
+public class UrlShortenerService(ApplicationDbContext context,
+    IValidator<CreateShortLinkRequest> validator,
+    IValidator<CreateShortLinkByUserIdRequest> userValidator) : IUrlShortenerService
 {
     private const string Characters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     public async Task<Domain.Entities.ShortLink> CreateShortLinkAsync(string originalUrl, string? customCode = null, Guid? userId = null)
     {
-        var dto = new CreateShortLinkRequest 
-        { 
-            OriginalUrl = originalUrl, 
-            CustomCode = customCode ?? string.Empty,
-            UserId = userId?.ToString() ?? string.Empty,
-        };
+        object dto;
+        FluentValidation.Results.ValidationResult validationResult;
 
-        FluentValidation.Results.ValidationResult validationResult = await validator.ValidateAsync(dto);
+        if (customCode != null && userId != null)
+        {
+            var userDto = new UrlShortener.Shared.Protos.CreateShortLinkByUserIdRequest
+            {
+                OriginalUrl = originalUrl,
+                CustomCode = customCode ?? string.Empty,
+                UserId = userId?.ToString() ?? string.Empty,
+            };
+            dto = userDto;
+            validationResult = await userValidator.ValidateAsync(userDto);
+        }
+        else
+        {
+            var simpleDto = new UrlShortener.Shared.Protos.CreateShortLinkRequest
+            {
+                OriginalUrl = originalUrl,
+            };
+            dto = simpleDto;
+            validationResult = await validator.ValidateAsync(simpleDto);
+        }
+
         if (!validationResult.IsValid)
             throw new ValidationException(validationResult.Errors);
 
@@ -41,7 +59,7 @@ public class UrlShortenerService(ApplicationDbContext context, IValidator<Create
             ClickCount = 0,
             UserId = userId
         };
-            
+
         context.ShortLinks.Add(shortLink);
         await context.SaveChangesAsync();
 

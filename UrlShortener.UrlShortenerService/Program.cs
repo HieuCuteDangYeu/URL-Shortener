@@ -99,6 +99,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 // Services
 builder.Services.AddScoped<IValidator<CreateShortLinkRequest>, CreateShortLinkRequestValidator>();
+builder.Services.AddScoped<IValidator<CreateShortLinkByUserIdRequest>, CreateShortLinkByUserIdRequestValidator>();
 builder.Services.AddScoped<IUrlShortenerService, UrlShortener.UrlShortenerService.Application.Services.UrlShortenerService>();
 builder.Services.AddControllers();
 
