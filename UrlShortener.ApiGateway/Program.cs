@@ -11,6 +11,10 @@ builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
+// Add services
+builder.Services.AddOcelot(builder.Configuration);
+builder.Services.AddSwaggerForOcelot(builder.Configuration);
+
 // CORS for the front-end
 builder.Services.AddCors(options =>
 {
@@ -20,9 +24,6 @@ builder.Services.AddCors(options =>
          .AllowAnyMethod());
 });
 
-// Add services
-builder.Services.AddOcelot(builder.Configuration);
-builder.Services.AddSwaggerForOcelot(builder.Configuration);
 // JWT Authentication
 var jwtSecret = builder.Configuration["JWT:Secret"] ?? throw new InvalidOperationException("JWT Secret not configured");
 var jwtIssuer = builder.Configuration["JWT:Issuer"];
@@ -47,9 +48,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
-// Add Ocelot services
-builder.Services.AddOcelot(builder.Configuration);
-builder.Services.AddSwaggerForOcelot(builder.Configuration);
 var app = builder.Build();
 
 // CORS must be before Ocelot
