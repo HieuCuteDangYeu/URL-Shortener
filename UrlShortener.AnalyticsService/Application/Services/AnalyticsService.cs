@@ -98,12 +98,12 @@ public class AnalyticsService(AnalyticsDbContext db) : IAnalyticsService
         days = days <= 0 ? 7 : days;
         var from = DateTime.UtcNow.Date.AddDays(-(days - 1));
 
-        var query = db.Clicks.Where(c => c.OccurredAt >= from);
+        var query = db.Clicks.Where(c => c.CreatedAt >= from);
         if (!string.IsNullOrWhiteSpace(shortCode))
             query = query.Where(c => c.ShortCode == shortCode);
 
         var grouped = await query
-            .GroupBy(c => c.OccurredAt.Date)
+            .GroupBy(c => c.CreatedAt.Date)
             .Select(g => new { Date = g.Key, Count = g.LongCount() })
             .ToListAsync(ct);
 
@@ -121,5 +121,76 @@ public class AnalyticsService(AnalyticsDbContext db) : IAnalyticsService
         }
 
         return resp;
+    }
+
+    public static string ParseBrowser(string? userAgent)
+    {
+        if (string.IsNullOrWhiteSpace(userAgent)) return "Unknown";
+        var ua = userAgent.Trim().ToLowerInvariant();
+
+        // Bots / crawlers
+        if (ua.Contains("bot") || ua.Contains("spider") || ua.Contains("crawl")) return "Bot";
+
+        // API/CLI clients
+        if (ua.Contains("postmanruntime")) return "Postman";
+        if (ua.Contains("insomnia")) return "Insomnia";
+        if (ua.Contains("curl")) return "curl";
+
+        // Edge (Chromium, iOS, Android)
+        if (ua.Contains("edg/") || ua.Contains("edgios") || ua.Contains("edga")) return "Edge";
+
+        // Opera
+        if (ua.Contains("opr/") || ua.Contains("opera")) return "Opera";
+
+        // Samsung Internet
+        if (ua.Contains("samsungbrowser")) return "Samsung Internet";
+
+        // Vivaldi
+        if (ua.Contains("vivaldi")) return "Vivaldi";
+
+        // Yandex
+        if (ua.Contains("yabrowser")) return "Yandex";
+
+        // UC Browser
+        if (ua.Contains("ucbrowser")) return "UC Browser";
+
+        // Brave
+        if (ua.Contains("brave")) return "Brave";
+
+        // Firefox (incl. iOS)
+        if (ua.Contains("fxios") || ua.Contains("firefox")) return "Firefox";
+
+        // Chrome on iOS
+        if (ua.Contains("crios")) return "Chrome";
+
+        // Explicit Chrome token (covers desktop and Android); exclude Chromium-based forks above
+        if (ua.Contains("chrome/") &&
+            !ua.Contains("edg/") &&
+            !ua.Contains("opr/") &&
+            !ua.Contains("samsungbrowser") &&
+            !ua.Contains("vivaldi") &&
+            !ua.Contains("yabrowser") &&
+            !ua.Contains("ucbrowser") &&
+            !ua.Contains("brave"))
+            return "Chrome";
+
+        // Android WebView heuristics
+        if (ua.Contains("; wv") || (ua.Contains("android") && ua.Contains("version/") && ua.Contains("chrome/") && !ua.Contains("samsungbrowser")))
+            return "Android WebView";
+
+        // Chromium
+        if (ua.Contains("chromium")) return "Chromium";
+
+        // Safari (desktop/mobile), only when Version/ token present and not Chrome/CriOS
+        if (ua.Contains("safari") && ua.Contains("version/") && !ua.Contains("chrome") && !ua.Contains("crios"))
+            return "Safari";
+
+        // Internet Explorer
+        if (ua.Contains("msie") || ua.Contains("trident")) return "IE";
+
+        // Amazon Silk
+        if (ua.Contains("silk/")) return "Silk";
+
+        return "Unknown";
     }
 }

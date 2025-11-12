@@ -32,7 +32,7 @@ namespace UrlShortener.AnalyticsService.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
-                    b.Property<DateTime>("OccurredAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Referer")
@@ -52,7 +52,7 @@ namespace UrlShortener.AnalyticsService.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OccurredAt");
+                    b.HasIndex("CreatedAt");
 
                     b.HasIndex("ShortCode");
 

@@ -21,7 +21,7 @@ namespace UrlShortener.AnalyticsService.Migrations
                     UserAgent = table.Column<string>(type: "character varying(512)", maxLength: 512, nullable: true),
                     Browser = table.Column<string>(type: "character varying(64)", maxLength: 64, nullable: true),
                     Referer = table.Column<string>(type: "text", nullable: true),
-                    OccurredAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -29,9 +29,9 @@ namespace UrlShortener.AnalyticsService.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Clicks_OccurredAt",
+                name: "IX_Clicks_CreatedAt",
                 table: "Clicks",
-                column: "OccurredAt");
+                column: "CreatedAt");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Clicks_ShortCode",

@@ -77,7 +77,12 @@ builder.Services.AddAuthorization();
 
 // DbContext
 builder.Services.AddDbContext<AnalyticsDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.EnableDetailedErrors();
+    options.EnableSensitiveDataLogging();
+});
+
 
 // DI
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
@@ -106,21 +111,25 @@ app.MapGet("/", () => "Analytics Service - gRPC");
 var broker = app.Services.GetRequiredService<IMessageBroker>();
 var scopeFactory = app.Services.GetRequiredService<IServiceScopeFactory>();
 
-broker.Subscribe<ShortLinkClickedEvent>("shortlink-clicked", ev =>
+broker.Subscribe<ShortLinkClickedEvent>("url-clicked", ev =>
 {
     using var scope = scopeFactory.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AnalyticsDbContext>();
+    var browser = AnalyticsService.ParseBrowser(ev.UserAgent);
+    Console.WriteLine(browser);
     db.Clicks.Add(new UrlShortener.AnalyticsService.Domain.Click
     {
         Id = Guid.NewGuid(),
         ShortCode = ev.ShortCode,
-        OccurredAt = ev.OccurredAt,
+        CreatedAt = ev.CreatedAt,
         UserId = ev.UserId,
         UserAgent = ev.UserAgent,
-        Browser = string.IsNullOrWhiteSpace(ev.Browser) ? "Unknown" : ev.Browser,
+        Browser = browser,
         Referer = ev.Referer
     });
     db.SaveChanges();
+
+    var saved = db.Clicks.AsNoTracking().First(x => x.ShortCode == ev.ShortCode && x.CreatedAt == ev.CreatedAt);
 });
 
 app.Run();

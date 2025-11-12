@@ -13,10 +13,11 @@ public class AnalyticsDbContext(DbContextOptions<AnalyticsDbContext> options) : 
         {
             e.HasKey(x => x.Id);
             e.Property(x => x.ShortCode).HasMaxLength(32).IsRequired();
+            e.Property(x => x.UserId);
             e.Property(x => x.Browser).HasMaxLength(64);
             e.Property(x => x.UserAgent).HasMaxLength(512);
             e.HasIndex(x => x.ShortCode);
-            e.HasIndex(x => x.OccurredAt);
+            e.HasIndex(x => x.CreatedAt);
         });
     }
 }

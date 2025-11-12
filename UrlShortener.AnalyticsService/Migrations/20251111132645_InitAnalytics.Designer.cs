@@ -12,7 +12,7 @@ using UrlShortener.AnalyticsService.Infrastructure.Persistence;
 namespace UrlShortener.AnalyticsService.Migrations
 {
     [DbContext(typeof(AnalyticsDbContext))]
-    [Migration("20251111155104_InitAnalytics")]
+    [Migration("20251111132645_InitAnalytics")]
     partial class InitAnalytics
     {
         /// <inheritdoc />
@@ -35,7 +35,7 @@ namespace UrlShortener.AnalyticsService.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("character varying(64)");
 
-                    b.Property<DateTime>("OccurredAt")
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Referer")
@@ -55,7 +55,7 @@ namespace UrlShortener.AnalyticsService.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("OccurredAt");
+                    b.HasIndex("CreatedAt");
 
                     b.HasIndex("ShortCode");
 
