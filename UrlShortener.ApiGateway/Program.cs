@@ -1,4 +1,7 @@
-﻿using Ocelot.DependencyInjection;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,19 +11,36 @@ builder.Configuration
     .SetBasePath(builder.Environment.ContentRootPath)
     .AddJsonFile("ocelot.json", optional: false, reloadOnChange: true);
 
-// Add services
+// JWT Authentication
+var jwtSecret = builder.Configuration["JWT:Secret"] ?? throw new InvalidOperationException("JWT Secret not configured");
+var jwtIssuer = builder.Configuration["JWT:Issuer"];
+var jwtAudience = builder.Configuration["JWT:Audience"];
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer("Bearer", options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuerSigningKey = true,                  
+            IssuerSigningKey = new SymmetricSecurityKey(
+                 Encoding.UTF8.GetBytes(jwtSecret)             
+             ),
+            ValidateLifetime = true,                             
+            ClockSkew = TimeSpan.FromMinutes(1),             
+
+            ValidateIssuer = false,                          
+            ValidateAudience = false                        
+        };
+    });
+
+builder.Services.AddAuthorization();
+
+// Add Ocelot services
 builder.Services.AddOcelot(builder.Configuration);
 builder.Services.AddSwaggerForOcelot(builder.Configuration);
-
-// Add logging for development
-if (builder.Environment.IsDevelopment())
-{
-    builder.Logging.AddConsole();
-}
-
 var app = builder.Build();
 
-// Configure pipeline
+app.UseAuthentication();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -30,8 +50,13 @@ if (app.Environment.IsDevelopment())
     });
 }
 
-await app.UseOcelot();
-
-app.UseRouting();
+await app.UseOcelot(
+    new OcelotPipelineConfiguration
+    {
+        AuthorizationMiddleware = async (context, next) =>
+        {
+            await next.Invoke();
+        }
+    });
 
 await app.RunAsync();

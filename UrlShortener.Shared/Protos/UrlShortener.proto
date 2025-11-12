@@ -20,6 +20,17 @@ service UrlShortenerService {
       get: "/Url"
     };
   }
+  rpc GetLinkByUserId (GetAllLinksRequest) returns (GetAllLinksResponse) {
+    option (google.api.http) = {
+      get: "/Url/User"
+    };
+  }
+  rpc CreateShortLinkByUserId (CreateShortLinkRequest) returns (CreateShortLinkResponse) {
+    option (google.api.http) = {
+      post: "/Url/User"
+      body: "*"
+    };
+  }
 }
 
 message CreateShortLinkRequest {

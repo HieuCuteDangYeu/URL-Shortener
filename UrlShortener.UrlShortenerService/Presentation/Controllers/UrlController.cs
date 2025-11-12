@@ -28,6 +28,8 @@ public class UrlShortenerServiceController(IUrlShortenerService urlShortenerServ
 
         messageBroker.Publish("url-clicked", urlClickedEvent);
 
+        await urlShortenerService.IncrementClickCountAsync(shortCode);
+
         return Redirect(shortLink.OriginalUrl);
     }
 }

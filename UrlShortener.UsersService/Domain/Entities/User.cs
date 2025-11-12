@@ -19,13 +19,9 @@ public class User
     [Phone, StringLength(32)]
     public string? PhoneNumber { get; set; }
 
-    [Required, StringLength(50)]
-    public string Role { get; set; } = "User";
-
     [Required]
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
-    // Password storage (never returned to clients)
     [Required, StringLength(512)]
     public string PasswordHash { get; set; } = string.Empty;
 
