@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using UrlShortener.AnalyticsService.Application.Interfaces;
 using UrlShortener.AnalyticsService.Application.Services;
 using UrlShortener.AnalyticsService.Infrastructure.Persistence;
@@ -18,7 +19,12 @@ builder.Services.AddSwaggerGen(c =>
 
 // DbContext
 builder.Services.AddDbContext<AnalyticsDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+    options.EnableDetailedErrors();
+    options.EnableSensitiveDataLogging();
+});
+
 
 // DI
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
@@ -48,6 +54,8 @@ broker.Subscribe<ShortLinkClickedEvent>("url-clicked", ev =>
 {
     using var scope = scopeFactory.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<AnalyticsDbContext>();
+    var browser = AnalyticsService.ParseBrowser(ev.UserAgent);
+    Console.WriteLine(browser);
     db.Clicks.Add(new UrlShortener.AnalyticsService.Domain.Click
     {
         Id = Guid.NewGuid(),
@@ -55,10 +63,12 @@ broker.Subscribe<ShortLinkClickedEvent>("url-clicked", ev =>
         CreatedAt = ev.CreatedAt,
         UserId = ev.UserId,
         UserAgent = ev.UserAgent,
-        Browser = string.IsNullOrWhiteSpace(ev.Browser) ? "Unknown" : ev.Browser,
+        Browser = browser,
         Referer = ev.Referer
     });
     db.SaveChanges();
+
+    var saved = db.Clicks.AsNoTracking().First(x => x.ShortCode == ev.ShortCode && x.CreatedAt == ev.CreatedAt);
 });
 
 app.Run();
