@@ -22,6 +22,7 @@
 
 		<!-- JWT Authentication -->
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.6" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.0" />
 		<PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.6.0" />
 
 		<!-- Validation -->
@@ -50,5 +51,11 @@
 
 	<ItemGroup>
 	  <Protobuf Include="..\UrlShortener.Shared\Protos\User.proto" GrpcServices="Client" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Protobuf Update="..\UrlShortener.Shared\Protos\UrlShortener.proto">
+	    <Link>UrlShortener.proto</Link>
+	  </Protobuf>
 	</ItemGroup>
 </Project>

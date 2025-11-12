@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="12.1.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.JsonTranscoding" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.Grpc.Swagger" Version="0.8.6" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.65.0" />
@@ -28,6 +29,10 @@
 
   <ItemGroup>
     <Protobuf Include="..\UrlShortener.Shared\Protos\**\*.proto" GrpcServices="Server" Link="Protos\%(RecursiveDir)%(Filename)%(Extension)" ProtoRoot="..\UrlShortener.Shared\Protos" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\UrlShortener.Shared\Protos\User.proto" GrpcServices="Client" />
   </ItemGroup>
 
 </Project>

@@ -3,7 +3,27 @@
     {
       "SwaggerKey": "urlshortenerservice",
       "UpstreamPathTemplate": "/Url",
-      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "UpstreamHttpMethod": [ "GET" ],
+      "DownstreamPathTemplate": "/Url",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "Admin"
+      }
+    },
+    {
+      "SwaggerKey": "urlshortenerservice",
+      "UpstreamPathTemplate": "/Url",
+      "UpstreamHttpMethod": [ "POST" ],
       "DownstreamPathTemplate": "/Url",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -12,6 +32,26 @@
           "Port": 5001
         }
       ]
+    },
+    {
+      "SwaggerKey": "urlshortenerservice",
+      "UpstreamPathTemplate": "/Url/User",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "DownstreamPathTemplate": "/Url/User",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5001
+        }
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "User"
+      }
     },
     {
       "SwaggerKey": "analyticsservice",
@@ -24,7 +64,14 @@
           "Host": "localhost",
           "Port": 5005
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "Admin"
+      }
     },
     {
       "SwaggerKey": "analyticsservice",
@@ -37,14 +84,19 @@
           "Host": "localhost",
           "Port": 5005
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "Admin"
+      }
     },
-
-    // UsersService routes (JSON-transcoded proto maps to /users etc.)
     {
       "SwaggerKey": "usersservice",
       "UpstreamPathTemplate": "/users",
-      "UpstreamHttpMethod": [ "POST", "GET", "PATCH", "DELETE" ],
+      "UpstreamHttpMethod": [ "GET", "POST", "PATCH", "DELETE" ],
       "DownstreamPathTemplate": "/users",
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -52,10 +104,15 @@
           "Host": "localhost",
           "Port": 5002
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "role": "Admin"
+      }
     },
-
-    // AuthService routes (JSON-transcoded proto maps to /auth/* endpoints)
     {
       "SwaggerKey": "authservice",
       "UpstreamPathTemplate": "/auth/register",
@@ -106,7 +163,11 @@
           "Host": "localhost",
           "Port": 5004
         }
-      ]
+      ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     }
   ],
   "SwaggerEndPoints": [

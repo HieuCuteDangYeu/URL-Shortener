@@ -2,18 +2,21 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using UrlShortener.UserService.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace UrlShortener.UsersService.Migrations
+namespace UrlShortener.UserService.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251112083547_InitialTables")]
+    partial class InitialTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,19 +65,25 @@ namespace UrlShortener.UsersService.Migrations
                         .HasMaxLength(32)
                         .HasColumnType("character varying(32)");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
-                        .HasDefaultValue("User");
-
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa"),
+                            CreatedAt = new DateTime(2025, 11, 12, 8, 35, 47, 73, DateTimeKind.Utc).AddTicks(4731),
+                            Email = "admin@urlshortener.com",
+                            FirstName = "System",
+                            LastName = "Administrator",
+                            PasswordHash = "hiYyyyhWDMoBeCnUD3QOGLd7OG8lu+vXCzMTmlXWr7U=",
+                            PasswordSalt = "zoo5j1tqum+wWvm4cZeq8Q==",
+                            PhoneNumber = "0000000000"
+                        });
                 });
 #pragma warning restore 612, 618
         }

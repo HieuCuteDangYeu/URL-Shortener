@@ -14,7 +14,6 @@ message User {
   string lastName = 3;
   string email = 4;
   string phoneNumber = 5;
-  string role = 6;
 }
 
 message CreateUserRequest {
@@ -22,8 +21,7 @@ message CreateUserRequest {
   string lastName = 2;
   string email = 3;
   string phoneNumber = 4;
-  string role = 5;
-  string password = 6;
+  string password = 5;
 }
 
 message GetUserRequest {
@@ -46,9 +44,8 @@ message UpdateUserRequest {
   google.protobuf.StringValue firstName = 2;
   google.protobuf.StringValue lastName = 3;
   google.protobuf.StringValue phoneNumber = 4;
-  google.protobuf.StringValue role = 5;
-  google.protobuf.StringValue email = 6;
-  google.protobuf.StringValue password = 7;
+  google.protobuf.StringValue email = 5;
+  google.protobuf.StringValue password = 6;
 }
 
 message DeleteUserRequest {
@@ -65,9 +62,8 @@ message UserWithCredentials {
   string lastName = 3;
   string email = 4;
   string phoneNumber = 5;
-  string role = 6;
-  string passwordHash = 7;
-  string passwordSalt = 8;
+  string passwordHash = 6;
+  string passwordSalt = 7;
 }
 
 service UserService {
@@ -101,6 +97,12 @@ service UserService {
   rpc GetUserByEmail(GetUserByEmailRequest) returns (UserWithCredentials) {
     option (google.api.http) = {
       get: "/users/by-email/{email}"
+    };
+  }
+
+  rpc GetUserById(GetUserRequest) returns (User) {
+    option (google.api.http) = {
+      get: "/users/{id}"
     };
   }
 }

@@ -75,6 +75,6 @@ message AuthResponse {
   string email = 4;
   string firstName = 5;
   string lastName = 6;
-  string role = 7;
+  repeated string roles = 7;
   int64 expiresIn = 8;
 }

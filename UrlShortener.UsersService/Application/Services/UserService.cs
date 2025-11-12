@@ -32,7 +32,6 @@ public class UserService(UserDbContext db, IValidator<CreateUserRequest> createV
             LastName = request.LastName.Trim(),
             Email = normalizedEmail,
             PhoneNumber = string.IsNullOrWhiteSpace(request.PhoneNumber) ? null : request.PhoneNumber.Trim(),
-            Role = string.IsNullOrWhiteSpace(request.Role) ? "User" : request.Role,
             PasswordSalt = salt,
             PasswordHash = hash
         };
@@ -90,9 +89,6 @@ public class UserService(UserDbContext db, IValidator<CreateUserRequest> createV
 
         if (request.PhoneNumber != null)
             user.PhoneNumber = string.IsNullOrWhiteSpace(request.PhoneNumber) ? null : request.PhoneNumber.Trim();
-
-        if (request.Role != null)
-            user.Role = request.Role.Trim();
 
         if (request.Email != null)
             user.Email = request.Email.Trim().ToLowerInvariant();
